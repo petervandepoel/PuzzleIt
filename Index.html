@@ -1,0 +1,146 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<style>
+
+.draggable_1 {
+	position: relative;	
+	z-index: 2;
+	width: 1px;
+	height: 1px;
+	top: 150px;
+}
+
+.draggable_2 {
+	position: relative;	
+	z-index: 2;
+	width: 1px;
+	height: 1px;
+	top: 200px;
+}
+
+.draggable_3 {
+	position: relative;	
+	z-index: 2;
+	width: 1px;
+	height: 1px;
+	top: 250px;
+}
+
+
+.droppable {
+	position: relative;	
+}
+
+.single-block {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border-style: dashed;
+	border-width: 1px;
+	padding: 0px;
+	margin: 0px; 
+}
+
+.hover-background {
+	opacity: 0.5;
+}
+
+</style>
+<script>
+$(document).ready(function() {
+$('.draggable_1').draggable();
+$('.draggable_2').draggable();
+$('.draggable_3').draggable();
+/*$('.droppable').droppable({
+	drop: handleDropEvent,
+	over: handleOverEvent,
+	out: handleOutEvent
+})*/	
+
+new pieces(1,"blue",1,1,"drag");
+new pieces(1,"red",2,1,"drag");
+new pieces(1,"red",3,1,"drag");
+new pieces(1,"red",2,2,"drag");
+
+new pieces(2,"blue",1,1,"drag");
+new pieces(2,"orange",1,2,"drag");
+
+
+new pieces(3,"blue",1,2,"drag");
+new pieces(3,"yellow",2,1,"drag");
+new pieces(3,"yellow",2,2,"drag");
+
+
+
+new pieces(1,"grey",2,2,"drop");
+new pieces(1,"grey",2,3,"drop");
+new pieces(1,"grey",2,4,"drop");
+new pieces(1,"grey",3,2,"drop");
+new pieces(1,"grey",3,3,"drop");
+new pieces(1,"grey",3,4,"drop");
+new pieces(1,"grey",4,2,"drop");
+new pieces(1,"grey",4,3,"drop");
+new pieces(1,"grey",4,4,"drop");
+
+});
+
+
+
+function handleDropEvent(event, ui) {
+	var x = $(this).offset().left;
+	var y = $(this).offset().top;
+	$(ui.draggable).offset({left:x,top:y});
+};
+
+function handleOverEvent(event,ui) {
+	$(this).addClass("hover-background");
+	console.log("Touched me!");
+};
+
+function handleOutEvent(event,ui) {
+	$(this).removeClass("hover-background");
+};
+
+
+var pieces = function(id,color,x,y,behavior) {
+	
+	this.$piece = $('<div>').addClass("single-block");
+    this.$piece.css({
+		"left" : 30*(x-1) + "px",
+		"top" : 30*(y-1) + "px",
+		"background-color" : color
+		});
+	if(behavior=="drag") {
+		$('.draggable_'+id).append(this.$piece);
+	}
+	else if(behavior=="drop") {	
+		$('.droppable').append(this.$piece);	
+		this.$piece.droppable({
+			drop: handleDropEvent,
+			over: handleOverEvent,
+			out: handleOutEvent
+		});
+	}
+};
+
+
+
+
+</script>
+</head>
+<body>
+
+<div class="draggable_1"></div>
+<div class="draggable_2"></div>
+<div class="draggable_3"></div>
+
+
+
+<div class="droppable">
+</div>
+
+</body>
+</html>
