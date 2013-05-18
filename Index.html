@@ -1,37 +1,14 @@
 <html>
 <head>
+
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <style>
 
-.draggable_1 {
-	position: relative;	
-	z-index: 2;
-	width: 1px;
-	height: 1px;
-	top: 150px;
-}
-
-.draggable_2 {
-	position: relative;	
-	z-index: 2;
-	width: 1px;
-	height: 1px;
-	top: 200px;
-}
-
-.draggable_3 {
-	position: relative;	
-	z-index: 2;
-	width: 1px;
-	height: 1px;
-	top: 250px;
-}
-
-
 .droppable {
 	position: relative;	
+	z-index: -1;
 }
 
 .single-block {
@@ -44,46 +21,58 @@
 	margin: 0px; 
 }
 
-.hover-background {
-	opacity: 0.5;
+.game {
+	position: relative;
+}
+
+.div {
+	margin: 0px;
+	padding: 0px;
 }
 
 </style>
 <script>
-$(document).ready(function() {
-$('.draggable_1').draggable();
-$('.draggable_2').draggable();
-$('.draggable_3').draggable();
-/*$('.droppable').droppable({
-	drop: handleDropEvent,
-	over: handleOverEvent,
-	out: handleOutEvent
-})*/	
 
-new pieces(1,"blue",1,1,"drag");
+$(document).ready(function() {
+
+//set the draggable pieces
+new pieces(1,"blue",1,1,"drag","master");
 new pieces(1,"red",2,1,"drag");
 new pieces(1,"red",3,1,"drag");
 new pieces(1,"red",2,2,"drag");
 
-new pieces(2,"blue",1,1,"drag");
-new pieces(2,"orange",1,2,"drag");
+new pieces(2,"blue",1,1,"drag","master");
+new pieces(2,"yellow",2,0,"drag");
+new pieces(2,"yellow",3,-1,"drag");
 
-
-new pieces(3,"blue",1,2,"drag");
+new pieces(3,"blue",1,2,"drag","master");
 new pieces(3,"yellow",2,1,"drag");
 new pieces(3,"yellow",2,2,"drag");
+new pieces(3,"yellow",2,0,"drag");
 
+new pieces(4,"blue",1,1,"drag","master");
+new pieces(4,"green",1,2,"drag");
+new pieces(4,"green",1,3,"drag");
+new pieces(4,"green",2,3,"drag")
+new pieces(4,"green",3,3,"drag")
 
-
+//set the droppable pieces
 new pieces(1,"grey",2,2,"drop");
 new pieces(1,"grey",2,3,"drop");
 new pieces(1,"grey",2,4,"drop");
+new pieces(1,"grey",2,5,"drop");
 new pieces(1,"grey",3,2,"drop");
 new pieces(1,"grey",3,3,"drop");
 new pieces(1,"grey",3,4,"drop");
+new pieces(1,"grey",3,5,"drop");
 new pieces(1,"grey",4,2,"drop");
 new pieces(1,"grey",4,3,"drop");
 new pieces(1,"grey",4,4,"drop");
+new pieces(1,"grey",4,5,"drop");
+new pieces(1,"grey",5,2,"drop");
+new pieces(1,"grey",5,3,"drop");
+new pieces(1,"grey",5,4,"drop");
+new pieces(1,"grey",5,5,"drop");
 
 });
 
@@ -105,18 +94,30 @@ function handleOutEvent(event,ui) {
 };
 
 
-var pieces = function(id,color,x,y,behavior) {
+var pieces = function(id,color,x,y,behavior,master) {
 	
-	this.$piece = $('<div>').addClass("single-block");
-    this.$piece.css({
+	this.$piece = $('<div>');
+	
+	this.$piece.css({
 		"left" : 30*(x-1) + "px",
 		"top" : 30*(y-1) + "px",
-		"background-color" : color
-		});
-	if(behavior=="drag") {
-		$('.draggable_'+id).append(this.$piece);
+		"background-color" : color,
+		"z-index" : 5
+	});
+	
+	if(behavior == "drag" && master == "master") { 
+		this.$piece.css("top",(200+10*id) + "px");
+		this.$piece.addClass('single-block').addClass('a'+id);
+		$('div.game').append(this.$piece); 
+		this.$piece.draggable(); }
+	
+	else if(behavior=="drag" && (!master || master == "slave")) {
+		this.$piece.addClass('single-block');
+		$('div.game div.single-block.a'+id).append(this.$piece); 
 	}
+	
 	else if(behavior=="drop") {	
+		this.$piece.addClass('single-block');
 		$('.droppable').append(this.$piece);	
 		this.$piece.droppable({
 			drop: handleDropEvent,
@@ -133,12 +134,7 @@ var pieces = function(id,color,x,y,behavior) {
 </head>
 <body>
 
-<div class="draggable_1"></div>
-<div class="draggable_2"></div>
-<div class="draggable_3"></div>
-
-
-
+<div class="game"></div>
 <div class="droppable">
 </div>
 
