@@ -3,7 +3,6 @@
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="jquery.ui.touch-punch.min.js"></script>
 <style>
 
 .droppable {
@@ -32,61 +31,153 @@
 
 </style>
 <script>
-
+var piece;
 $(document).ready(function() {
 
 //set the draggable pieces
-new pieces(1,"blue",1,1,"drag","master");
-new pieces(1,"red",2,1,"drag");
-new pieces(1,"red",3,1,"drag");
-new pieces(1,"red",2,2,"drag");
 
-new pieces(2,"blue",1,1,"drag","master");
-new pieces(2,"yellow",2,0,"drag");
-new pieces(2,"yellow",3,-1,"drag");
+//pieces[1][0]  = {1,"blue",1,1,"drag","master")})
 
-new pieces(3,"blue",1,2,"drag","master");
-new pieces(3,"yellow",2,1,"drag");
-new pieces(3,"yellow",2,2,"drag");
-new pieces(3,"yellow",2,0,"drag");
+piece = new Array(6);
 
-new pieces(4,"blue",1,1,"drag","master");
-new pieces(4,"green",1,2,"drag");
-new pieces(4,"green",1,3,"drag");
-new pieces(4,"green",2,3,"drag")
-new pieces(4,"green",3,3,"drag")
+//piece[0] = new Array;
+//piece[0][0] = new piece_element(0,"blue",0,0,"drag","master");
+//piece[0][1] = new piece_element(0,"green",1,0,"drag");
+//piece[0][2] = new piece_element(0,"green",1,1,"drag");
+//piece[0][3] = new piece_element(0,"green",2,0,"drag");
 
-//set the droppable pieces
-new pieces(1,"grey",2,2,"drop");
-new pieces(1,"grey",2,3,"drop");
-new pieces(1,"grey",2,4,"drop");
-new pieces(1,"grey",2,5,"drop");
-new pieces(1,"grey",3,2,"drop");
-new pieces(1,"grey",3,3,"drop");
-new pieces(1,"grey",3,4,"drop");
-new pieces(1,"grey",3,5,"drop");
-new pieces(1,"grey",4,2,"drop");
-new pieces(1,"grey",4,3,"drop");
-new pieces(1,"grey",4,4,"drop");
-new pieces(1,"grey",4,5,"drop");
-new pieces(1,"grey",5,2,"drop");
-new pieces(1,"grey",5,3,"drop");
-new pieces(1,"grey",5,4,"drop");
-new pieces(1,"grey",5,5,"drop");
+//piece[0][1] = new piece_element(0,"green",1,0,"drag");
+//piece[0][2] = new piece_element(0,"red",2,0,"drag");
+//piece[0][2] = new piece_element(0,"red",1,1,"drag");
 
+piece[1] = new Array(4);
+piece[1][0] = new piece_element(1,"blue",0,0,"drag","master");
+piece[1][1] = new piece_element(1,"purple",0,1,"drag");
+piece[1][2] = new piece_element(1,"purple",1,0,"drag");
+piece[1][3] = new piece_element(1,"purple",1,1,"drag");
+
+
+piece[2] = new Array(4);
+piece[2][0] = new piece_element(2,"blue",0,0,"drag","master");
+piece[2][1] = new piece_element(2,"black",1,0,"drag");
+piece[2][2] = new piece_element(2,"black",2,0,"drag");
+piece[2][3] = new piece_element(2,"black",1,-1,"drag");
+
+piece[3] = new Array(4);
+piece[3][0] = new piece_element(3,"blue",0,0,"drag","master");
+piece[3][1] = new piece_element(3,"green",0,1,"drag");
+piece[3][2] = new piece_element(3,"green",1,1,"drag");
+piece[3][3] = new piece_element(3,"green",2,1,"drag");
+
+piece[4] = new Array(3);
+piece[4][0] = new piece_element(4,"blue",0,0,"drag","master");
+piece[4][1] = new piece_element(4,"red",0,1,"drag");
+piece[4][2] = new piece_element(4,"red",1,1,"drag");
+
+piece[5] = new Array(10);
+piece[5][0] = new piece_element(5,"blue",0,0,"drag","master");
+piece[5][1] = new piece_element(5,"orange",1,0,"drag");
+piece[5][2] = new piece_element(5,"orange",2,0,"drag");
+piece[5][3] = new piece_element(5,"orange",3,0,"drag");
+piece[5][4] = new piece_element(5,"orange",4,0,"drag");
+piece[5][5] = new piece_element(5,"orange",0,1,"drag");
+piece[5][6] = new piece_element(5,"orange",1,1,"drag");
+piece[5][7] = new piece_element(5,"orange",2,1,"drag");
+piece[5][8] = new piece_element(5,"orange",3,1,"drag");
+piece[5][9] = new piece_element(5,"orange",4,1,"drag");
+
+
+
+//set the droppable piece_element
+new piece_element(10,"grey",2,2,"drop");
+new piece_element(10,"grey",2,3,"drop");
+new piece_element(10,"grey",2,4,"drop");
+new piece_element(10,"grey",2,5,"drop");
+new piece_element(10,"grey",2,6,"drop");
+new piece_element(10,"grey",3,2,"drop");
+new piece_element(10,"grey",3,3,"drop");
+new piece_element(10,"grey",3,4,"drop");
+new piece_element(10,"grey",3,5,"drop");
+new piece_element(10,"grey",3,6,"drop");
+new piece_element(10,"grey",4,2,"drop");
+new piece_element(10,"grey",4,3,"drop");
+new piece_element(10,"grey",4,4,"drop");
+new piece_element(10,"grey",4,5,"drop");
+new piece_element(10,"grey",4,6,"drop");
+new piece_element(10,"grey",5,2,"drop");
+new piece_element(10,"grey",5,3,"drop");
+new piece_element(10,"grey",5,4,"drop");
+new piece_element(10,"grey",5,5,"drop");
+new piece_element(10,"grey",5,6,"drop");
+new piece_element(10,"grey",6,2,"drop");
+new piece_element(10,"grey",6,3,"drop");
+new piece_element(10,"grey",6,4,"drop");
+new piece_element(10,"grey",6,5,"drop");
+new piece_element(10,"grey",6,6,"drop");
+
+new piece_element(99,"green",10,10,"drop");
 });
 
 
 
 function handleDropEvent(event, ui) {
+	
+	if($(this).attr("id")==99) { 
+	rotateElement($(ui.draggable)); 
+	}
+	else {
 	var x = $(this).offset().left;
 	var y = $(this).offset().top;
 	$(ui.draggable).offset({left:x,top:y});
+	}
+}
+
+function rotateElement($piece) {	
+	var coordinates = $piece.position();
+	var css_x = coordinates.left;
+	var css_y = coordinates.top;
+	var piece_id = parseInt($piece.attr("id"));
+	
+	
+	//console.log(piece[piece_id].length);
+	
+	for(var i = 0; i<piece[piece_id].length; i++) {
+		var x = piece[piece_id][i].x;
+		var y = piece[piece_id][i].y;
+		
+		var $element = $('div.game').find(".x"+piece_id+x+".y"+piece_id+y);
+		$element.removeClass("x"+piece_id+x).removeClass("y"+piece_id+y);
+				
+		piece[piece_id][i].x = parseInt(-1*y);
+		piece[piece_id][i].y = parseInt(x);
+		
+		var new_x = piece[piece_id][i].x;
+		var new_y = piece[piece_id][i].y;
+		
+		
+		//console.log("old x: " + x + " y: " + y + ". new x: " + new_x + " y: " + new_y);
+		
+		if(piece[piece_id][i].type == "master") {
+		$element.css({
+		"left" : css_x + "px",
+		"top" : css_y + "px",
+		});	
+		}
+		else {
+		$element.css({
+		"left" : new_x*30 + "px",
+		"top" : new_y*30 + "px"
+		});
+		}
+		
+		$element.addClass("x"+piece_id+new_x).addClass("y"+piece_id+new_y);
+	}
 };
 
 function handleOverEvent(event,ui) {
-	$(this).addClass("hover-background");
-	console.log("Touched me!");
+	if($(this).attr("id")==99) { 
+	rotateElement($(ui.draggable)); 
+	}
 };
 
 function handleOutEvent(event,ui) {
@@ -94,32 +185,59 @@ function handleOutEvent(event,ui) {
 };
 
 
-var pieces = function(id,color,x,y,behavior,master) {
+/*var piece = function(pieces) {
+	this.pieces = pieces;
 	
-	this.$piece = $('<div>');
+	for(var i = 0; i<this.pieces.length(); i++) {
+	this.pieces[i] = new piece_element(this.pieces[i].id,this.pieces[i].color,this.pieces[i].x,this.pieces[i].y,this.pieces[i].behavior,this.pieces[i].master);		}
 	
-	this.$piece.css({
-		"left" : 30*(x-1) + "px",
-		"top" : 30*(y-1) + "px",
+}*/
+
+var piece_element = function(id,color,x,y,behavior,master) {
+	
+	if(master) {this.type = "master";} else {this.type = "slave";}
+	this.x = x;
+	this.y = y;
+	
+	
+	this.$piece_element = $('<div>');
+	
+	
+	this.$piece_element.css({
+		"left" : 30*(x) + "px",
+		"top" : 30*(y) + "px",
 		"background-color" : color,
 		"z-index" : 5
 	});
 	
+	if(this.type=="master") {
+		this.$piece_element.css({"left" : parseInt(id)*100 + "px", "top" : 200 + "px"});
+	}
+	
+	if(id==99) { this.$piece_element.html("hover blue element over me to get rotated");}
+	
+	this.$piece_element.attr("id",id);
+	this.$piece_element.attr("x",x);
+	this.$piece_element.attr("y",y);
+	this.$piece_element.attr("behavior",behavior);
+	this.$piece_element.attr("master",this.type);
+	
+	
+	
 	if(behavior == "drag" && master == "master") { 
-		this.$piece.css("top",(200+10*id) + "px");
-		this.$piece.addClass('single-block').addClass('a'+id);
-		$('div.game').append(this.$piece); 
-		this.$piece.draggable(); }
+		this.$piece_element.addClass('single-block').addClass('a'+id).addClass('x'+id+x).addClass('y'+id+y);;
+		$('div.game').append(this.$piece_element); 
+		this.$piece_element.draggable(); }
 	
 	else if(behavior=="drag" && (!master || master == "slave")) {
-		this.$piece.addClass('single-block');
-		$('div.game div.single-block.a'+id).append(this.$piece); 
+		this.$piece_element.addClass('single-block').addClass('x'+id+x).addClass('y'+id+y);
+		$('div.game div.single-block.a'+id).append(this.$piece_element); 
 	}
 	
 	else if(behavior=="drop") {	
-		this.$piece.addClass('single-block');
-		$('.droppable').append(this.$piece);	
-		this.$piece.droppable({
+		this.$piece_element.addClass('single-block');
+		$('.droppable').append(this.$piece_element);	
+		this.$piece_element.droppable({
 			drop: handleDropEvent,
 			over: handleOverEvent,
 			out: handleOutEvent
@@ -127,13 +245,22 @@ var pieces = function(id,color,x,y,behavior,master) {
 	}
 };
 
-
+function drawpiece($pieceelement,x,y) {
+	
+	$pieceelement.css({
+		"left" : 30*(x) + "px",
+		"top" : 30*(y) + "px",
+		"z-index" : 5
+	});
+	
+	$('div.game').append($pieceelement); 
+}
 
 
 </script>
 </head>
 <body>
-
+Welcome to this puzzle (under construction). This one is solvable! Place all the elements in the grid so that each grey field is covered once. <br> Note that you can also rotate pieces by hovering over the green box. Use the blue pieces to drag and drop. This only works on PC (yet).<br>There is a bug. If you rotate the 5*2 square one element disappears :(. Looking into this :).	
 <div class="game"></div>
 <div class="droppable">
 </div>
